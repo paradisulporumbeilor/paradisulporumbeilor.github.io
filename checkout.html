@@ -2,12 +2,12 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8" />
+  <title>Coșul Meu</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Coș - Paradisul Porumbeilor</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f4f4f4;
       padding: 20px;
     }
 
@@ -15,20 +15,20 @@
       text-align: center;
     }
 
-    .cart-container {
+    .cart {
       max-width: 800px;
       margin: 0 auto;
       background: white;
-      padding: 20px;
+      padding: 25px;
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
     }
 
     .item {
       display: flex;
-      margin-bottom: 20px;
+      align-items: center;
       border-bottom: 1px solid #ccc;
-      padding-bottom: 10px;
+      padding: 15px 0;
     }
 
     .item img {
@@ -49,39 +49,35 @@
       margin-top: 20px;
     }
 
-    a.back {
-      display: inline-block;
-      margin-top: 30px;
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
       text-decoration: none;
-      background-color: #3498db;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 6px;
+      color: #3498db;
     }
   </style>
 </head>
 <body>
 
 <h1>Coșul tău</h1>
-<div class="cart-container" id="cart"></div>
-
-<a href="index.html" class="back">Înapoi la magazin</a>
+<div class="cart" id="cart"></div>
+<a href="index.html">⟵ Înapoi la magazin</a>
 
 <script>
   const products = {
     hat: { name: "Pălărie porumbel", price: 30, image: "hat.jpg" },
     sneakers: { name: "Sneakers porumbel", price: 45, image: "sneakers.jpg" },
-    food: { name: "Hrană specială", price: 20, image: "food.jpg" },
+    food: { name: "Hrană porumbei", price: 20, image: "food.jpg" },
     nest: { name: "Cuib porumbel", price: 50, image: "nest.jpg" }
   };
 
-  const cart = JSON.parse(localStorage.getItem("cart")) || {};
+  const cart = JSON.parse(localStorage.getItem('cart')) || {};
   const container = document.getElementById("cart");
-
   let total = 0;
 
   if (Object.keys(cart).length === 0) {
-    container.innerHTML = "<p>Coșul tău este gol.</p>";
+    container.innerHTML = "<p>Coșul este gol.</p>";
   } else {
     for (let id in cart) {
       const item = products[id];
@@ -92,7 +88,7 @@
       const div = document.createElement("div");
       div.className = "item";
       div.innerHTML = `
-        <img src="${item.image}" alt="${item.name}" />
+        <img src="${item.image}" alt="${item.name}">
         <div class="details">
           <h3>${item.name}</h3>
           <p>Preț: ${item.price} lei</p>
@@ -103,10 +99,10 @@
       container.appendChild(div);
     }
 
-    const totalEl = document.createElement("div");
-    totalEl.className = "total";
-    totalEl.innerText = `Total de plată: ${total} lei`;
-    container.appendChild(totalEl);
+    const totalDiv = document.createElement("div");
+    totalDiv.className = "total";
+    totalDiv.innerText = `Total de plată: ${total} lei`;
+    container.appendChild(totalDiv);
   }
 </script>
 
