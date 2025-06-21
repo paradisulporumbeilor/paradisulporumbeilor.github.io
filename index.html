@@ -12,11 +12,25 @@
       padding: 0 20px;
       background-color: #f0f4f8;
       color: #333;
+      position: relative;
     }
     h1 {
       color: #0a9396;
       text-align: center;
       margin-bottom: 40px;
+    }
+    .cart-icon {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    .cart-icon img {
+      width: 100%;
+      height: 100%;
     }
     .products {
       display: flex;
@@ -54,6 +68,11 @@
 
   <h1>Paradisul Porumbeilor - Magazin Accesorii</h1>
 
+  <!-- Iconita cos -->
+  <a href="checkout.html" class="cart-icon" title="Vezi coșul">
+    <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Coș de cumpărături" />
+  </a>
+
   <div class="products">
     <div class="product">
       <a href="hat.html">
@@ -86,4 +105,3 @@
 
 </body>
 </html>
-
