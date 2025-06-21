@@ -2,87 +2,117 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Paradisul Porumbeilor - Magazin Accesorii</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Paradisul Porumbeilor</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-      background-color: #f0f4f8;
-      color: #333;
+      background: #f0f2f5;
+      margin: 0;
+      padding: 0;
     }
-    h1 {
-      color: #0a9396;
-      text-align: center;
-      margin-bottom: 40px;
-    }
-    .products {
+
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 20px;
       display: flex;
-      flex-wrap: wrap;
-      gap: 25px;
-      justify-content: center;
+      justify-content: space-between;
+      align-items: center;
     }
+
+    .cart-icon {
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+
     .product {
       background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      width: 200px;
-      text-align: center;
       padding: 15px;
-      transition: transform 0.2s ease;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      text-align: center;
     }
-    .product:hover {
-      transform: scale(1.05);
-    }
+
     .product img {
       width: 100%;
-      border-radius: 6px;
-      margin-bottom: 15px;
+      height: 200px;
+      object-fit: contain;
+      margin-bottom: 10px;
     }
-    .product a {
-      text-decoration: none;
-      color: #005f73;
-      font-weight: bold;
-      font-size: 1.1rem;
-      display: block;
+
+    button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #2980b9;
     }
   </style>
 </head>
 <body>
 
-  <h1>Paradisul Porumbeilor - Magazin Accesorii</h1>
+<header>
+  <h1>Paradisul Porumbeilor</h1>
+  <a href="checkout.html"><img src="cart.png" alt="Coș" class="cart-icon"></a>
+</header>
 
-  <div class="products">
-    <div class="product">
-      <a href="hat.html">
-        <img src="images/hat.jpg" alt="Pălărie porumbel" />
-        Pălărie porumbel
-      </a>
-    </div>
-
-    <div class="product">
-      <a href="sneakers.html">
-        <img src="images/sneakers.jpg" alt="Adidași porumbel" />
-        Adidași porumbel
-      </a>
-    </div>
-
-    <div class="product">
-      <a href="food.html">
-        <img src="images/food.jpg" alt="Mâncare porumbel" />
-        Mâncare porumbel
-      </a>
-    </div>
-
-    <div class="product">
-      <a href="nest.html">
-        <img src="images/nest.jpg" alt="Cuib porumbel" />
-        Cuib porumbel
-      </a>
-    </div>
+<div class="products">
+  <div class="product">
+    <img src="hat.jpg" alt="Pălărie porumbel">
+    <h3>Pălărie porumbel</h3>
+    <p>Preț: 30 lei</p>
+    <button onclick="addToCart('hat')">Adaugă în coș</button>
   </div>
+
+  <div class="product">
+    <img src="sneakers.jpg" alt="Sneakers porumbel">
+    <h3>Sneakers porumbel</h3>
+    <p>Preț: 45 lei</p>
+    <button onclick="addToCart('sneakers')">Adaugă în coș</button>
+  </div>
+
+  <div class="product">
+    <img src="food.jpg" alt="Hrană porumbei">
+    <h3>Hrană specială</h3>
+    <p>Preț: 20 lei</p>
+    <button onclick="addToCart('food')">Adaugă în coș</button>
+  </div>
+
+  <div class="product">
+    <img src="nest.jpg" alt="Cuib porumbel">
+    <h3>Cuib confortabil</h3>
+    <p>Preț: 50 lei</p>
+    <button onclick="addToCart('nest')">Adaugă în coș</button>
+  </div>
+</div>
+
+<script>
+  function addToCart(id) {
+    const cart = JSON.parse(localStorage.getItem('cart')) || {};
+    cart[id] = (cart[id] || 0) + 1;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert("Produsul a fost adăugat în coș!");
+  }
+</script>
 
 </body>
 </html>
