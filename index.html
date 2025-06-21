@@ -21,7 +21,7 @@
   <div class="product" data-id="1" data-name="Pălărie porumbel" data-price="15">
     <img src="images/hat.jpg" alt="Pălărie" />
     <div class="product-info">
-      <h3><a href="product1.html">Pălărie porumbel</a></h3>
+      <h3>Pălărie porumbel</h3>
       <p>Preț: 15 RON</p>
       <button onclick="addToCart(1)">Adaugă în coș</button>
     </div>
@@ -30,7 +30,7 @@
   <div class="product" data-id="2" data-name="Adidași porumbel" data-price="45">
     <img src="images/sneakers.jpg" alt="Adidași" />
     <div class="product-info">
-      <h3><a href="product2.html">Adidași porumbel</a></h3>
+      <h3>Adidași porumbel</h3>
       <p>Preț: 45 RON</p>
       <button onclick="addToCart(2)">Adaugă în coș</button>
     </div>
@@ -39,18 +39,9 @@
   <div class="product" data-id="3" data-name="Mâncare porumbel" data-price="20">
     <img src="images/food.jpg" alt="Mâncare" />
     <div class="product-info">
-      <h3><a href="product3.html">Mâncare porumbel</a></h3>
+      <h3>Mâncare porumbel</h3>
       <p>Preț: 20 RON</p>
       <button onclick="addToCart(3)">Adaugă în coș</button>
-    </div>
-  </div>
-
-  <div class="product" data-id="4" data-name="Accesoriu porumbel" data-price="30">
-    <img src="images/accessory.jpg" alt="Accesoriu" />
-    <div class="product-info">
-      <h3><a href="product4.html">Accesoriu porumbel</a></h3>
-      <p>Preț: 30 RON</p>
-      <button onclick="addToCart(4)">Adaugă în coș</button>
     </div>
   </div>
 </div>
@@ -59,12 +50,15 @@
 
 <script>
   function addToCart(productId) {
+    // Găsește produsul în pagină
     const productElem = document.querySelector(`.product[data-id='${productId}']`);
     const name = productElem.getAttribute('data-name');
     const price = parseFloat(productElem.getAttribute('data-price'));
 
+    // Ia coșul din localStorage sau inițializează gol
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+    // Verifică dacă produsul există deja în coș
     const existing = cart.find(item => item.id === productId);
     if (existing) {
       existing.qty++;
@@ -72,7 +66,9 @@
       cart.push({ id: productId, name, price, qty: 1 });
     }
 
+    // Salvează în localStorage
     localStorage.setItem('cart', JSON.stringify(cart));
+
     alert(`${name} a fost adăugat în coș!`);
   }
 
