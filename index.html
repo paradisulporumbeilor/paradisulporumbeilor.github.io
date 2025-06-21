@@ -5,20 +5,124 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Paradisul Porumbeilor - Magazin</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    .product { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; display: flex; align-items: center; }
-    .product img { width: 100px; height: 100px; object-fit: cover; margin-right: 15px; }
-    .product-info { flex-grow: 1; }
-    button { padding: 8px 15px; cursor: pointer; }
-    #cart-icon { position: fixed; top: 20px; right: 20px; cursor: pointer; font-size: 24px; }
-    /* Link produs */
+    /* Reset și font */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      padding: 40px 20px;
+      margin: 0;
+    }
+
+    h1 {
+      text-align: center;
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #3a3a3a;
+    }
+
+    #products {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    .product {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+    }
+    .product:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .product img {
+      width: 140px;
+      height: 140px;
+      object-fit: cover;
+      border-radius: 50%;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .product-info {
+      text-align: center;
+      flex-grow: 1;
+    }
+
+    .product-info h3 {
+      margin: 0 0 10px 0;
+      font-size: 1.3rem;
+      color: #222;
+    }
+    /* Facem titlul produsului link */
     .product-info h3 a {
       color: #3751ff;
       text-decoration: underline;
       cursor: pointer;
     }
     .product-info h3 a:hover {
-      color: #2a3bbb;
+      color: #243fdd;
+    }
+
+    .product-info p {
+      margin: 0 0 20px 0;
+      font-size: 1.1rem;
+      color: #666;
+    }
+
+    button {
+      background: #5c7cfa;
+      border: none;
+      padding: 12px 25px;
+      font-size: 1rem;
+      color: white;
+      font-weight: 600;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 12px rgba(92,124,250,0.5);
+      user-select: none;
+    }
+    button:hover {
+      background-color: #4869d9;
+      box-shadow: 0 6px 18px rgba(72,105,217,0.6);
+    }
+    button:active {
+      transform: scale(0.96);
+    }
+
+    #cart-icon {
+      position: fixed;
+      top: 25px;
+      right: 25px;
+      font-size: 30px;
+      cursor: pointer;
+      background: #5c7cfa;
+      color: white;
+      padding: 12px 15px;
+      border-radius: 50%;
+      box-shadow: 0 5px 15px rgba(92,124,250,0.6);
+      transition: background-color 0.3s ease;
+      user-select: none;
+      z-index: 1000;
+    }
+    #cart-icon:hover {
+      background-color: #4869d9;
+      box-shadow: 0 8px 20px rgba(72,105,217,0.7);
     }
   </style>
 </head>
@@ -73,7 +177,6 @@
     }
 
     localStorage.setItem('cart', JSON.stringify(cart));
-
     alert(`${name} a fost adăugat în coș!`);
   }
 
@@ -84,3 +187,4 @@
 
 </body>
 </html>
+>
