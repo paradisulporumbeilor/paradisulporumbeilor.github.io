@@ -1,97 +1,90 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Checkout - Paradisul Porumbeilor</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    max-width: 600px;
-    margin: 40px auto;
-    padding: 20px;
-  }
-  h1 {
-    color: #333;
-  }
-  p {
-    font-size: 1.2em;
-  }
-  a {
-    color: #008CBA;
-    text-decoration: none;
-  }
-  a:hover {
-    text-decoration: underline;
-  }
-  ul {
-    list-style: none;
-    padding-left: 0;
-  }
-  li {
-    margin-bottom: 10px;
-    font-size: 1.1em;
-  }
-  .total {
-    font-weight: bold;
-    font-size: 1.3em;
-    margin-top: 20px;
-  }
-  button {
-    margin-top: 20px;
-    background: #008CBA;
-    color: white;
-    padding: 10px 18px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 15px;
-  }
-  button:hover {
-    background: #005f73;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paradisul Porumbeilor - Coș</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+    th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    button { padding: 8px 15px; cursor: pointer; }
+  </style>
 </head>
 <body>
 
-<h1>Checkout</h1>
+<h1>Coșul tău</h1>
 
-<div id="cart-items"></div>
+<table id="cart-table">
+  <thead>
+    <tr>
+      <th>Produs</th>
+      <th>Preț</th>
+      <th>Cantitate</th>
+      <th>Total</th>
+      <th>Acțiuni</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
 
-<button onclick="clearCart()">Golește coșul</button>
+<p id="empty-msg">Coșul este gol.</p>
 
-<p><a href="index.html">Înapoi la magazin</a></p>
+<button onclick="goBack()">Continuă cumpărăturile</button>
 
 <script>
-  function displayCart() {
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    let cartContainer = document.getElementById('cart-items');
+  function loadCart() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const tbody = document.querySelector('#cart-table tbody');
+    const emptyMsg = document.getElementById('empty-msg');
+    tbody.innerHTML = '';
 
-    if(cart.length === 0) {
-      cartContainer.innerHTML = '<p>Coșul tău este gol.</p>';
+    if (cart.length === 0) {
+      emptyMsg.style.display = 'block';
+      document.getElementById('cart-table').style.display = 'none';
       return;
+    } else {
+      emptyMsg.style.display = 'none';
+      document.getElementById('cart-table').style.display = 'table';
     }
 
-    let html = '<ul>';
-    let total = 0;
+    let grandTotal = 0;
     cart.forEach(item => {
-      html += `<li>${item.name} - ${item.price} RON</li>`;
-      total += item.price;
+      const total = item.price * item.qty;
+      grandTotal += total;
+
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${item.name}</td>
+        <td>${item.price.toFixed(2)} RON</td>
+        <td>${item.qty}</td>
+        <td>${total.toFixed(2)} RON</td>
+        <td><button onclick="removeItem(${item.id})">Șterge</button></td>
+      `;
+      tbody.appendChild(tr);
     });
-    html += '</ul>';
-    html += `<p class="total">Total: ${total} RON</p>`;
 
-    cartContainer.innerHTML = html;
+    const trTotal = document.createElement('tr');
+    trTotal.innerHTML = `
+      <td colspan="3"><strong>Total general</strong></td>
+      <td colspan="2"><strong>${grandTotal.toFixed(2)} RON</strong></td>
+    `;
+    tbody.appendChild(trTotal);
   }
 
-  function clearCart() {
-    if(confirm('Ești sigur că vrei să golești coșul?')) {
-      localStorage.removeItem('cart');
-      displayCart();
-    }
+  function removeItem(id) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart = cart.filter(item => item.id !== id);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    loadCart();
   }
 
-  window.onload = displayCart;
+  function goBack() {
+    window.location.href = 'index.html';
+  }
+
+  window.onload = loadCart;
 </script>
 
 </body>
