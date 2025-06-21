@@ -1,141 +1,88 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Paradisul Porumbeilor - Magazin</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background: #f0f4f8;
-  }
-  h1 {
-    color: #2c3e50;
-  }
-  .product {
-    background: white;
-    border-radius: 6px;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    margin: 15px;
-    padding: 15px;
-    width: 220px;
-    display: inline-block;
-    vertical-align: top;
-    text-align: center;
-    transition: transform 0.2s;
-    cursor: pointer;
-  }
-  .product:hover {
-    transform: scale(1.05);
-  }
-  .product img {
-    max-width: 100%;
-    height: 140px;
-    object-fit: contain;
-    margin-bottom: 10px;
-  }
-  .product button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 600;
-  }
-  .product button:hover {
-    background-color: #2980b9;
-  }
-  #cartIcon {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    cursor: pointer;
-  }
-  #cartIcon img {
-    width: 40px;
-  }
-  #cartCount {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    background: red;
-    color: white;
-    font-weight: 700;
-    font-size: 14px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    text-align: center;
-    line-height: 20px;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Paradisul Porumbeilor - Magazin Accesorii</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background-color: #f0f4f8;
+      color: #333;
+    }
+    h1 {
+      color: #0a9396;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .products {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+    }
+    .product {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 200px;
+      text-align: center;
+      padding: 15px;
+      transition: transform 0.2s ease;
+    }
+    .product:hover {
+      transform: scale(1.05);
+    }
+    .product img {
+      width: 100%;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+    .product a {
+      text-decoration: none;
+      color: #005f73;
+      font-weight: bold;
+      font-size: 1.1rem;
+      display: block;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Paradisul Porumbeilor - Magazin</h1>
+  <h1>Paradisul Porumbeilor - Magazin Accesorii</h1>
 
-<div class="product" onclick="window.location.href='hat.html'">
-  <img src="hat.jpg" alt="Palarie porumbei" />
-  <h3>Palarie porumbei</h3>
-  <p>Preț: 30 lei</p>
-  <button onclick="event.stopPropagation(); addToCart('hat')">Adaugă în coș</button>
-</div>
+  <div class="products">
+    <div class="product">
+      <a href="hat.html">
+        <img src="images/hat.jpg" alt="Pălărie porumbel" />
+        Pălărie porumbel
+      </a>
+    </div>
 
-<div class="product" onclick="window.location.href='sneakers.html'">
-  <img src="sneakers.jpg" alt="Sneakers pentru porumbei" />
-  <h3>Sneakers pentru porumbei</h3>
-  <p>Preț: 45 lei</p>
-  <button onclick="event.stopPropagation(); addToCart('sneakers')">Adaugă în coș</button>
-</div>
+    <div class="product">
+      <a href="sneakers.html">
+        <img src="images/sneakers.jpg" alt="Adidași porumbel" />
+        Adidași porumbel
+      </a>
+    </div>
 
-<div class="product" onclick="window.location.href='food.html'">
-  <img src="food.jpg" alt="Hrană premium" />
-  <h3>Hrană premium</h3>
-  <p>Preț: 20 lei</p>
-  <button onclick="event.stopPropagation(); addToCart('food')">Adaugă în coș</button>
-</div>
+    <div class="product">
+      <a href="food.html">
+        <img src="images/food.jpg" alt="Mâncare porumbel" />
+        Mâncare porumbel
+      </a>
+    </div>
 
-<div class="product" onclick="window.location.href='nest.html'">
-  <img src="nest.jpg" alt="Cuib confortabil" />
-  <h3>Cuib confortabil</h3>
-  <p>Preț: 50 lei</p>
-  <button onclick="event.stopPropagation(); addToCart('nest')">Adaugă în coș</button>
-</div>
-
-<div id="cartIcon" onclick="window.location.href='checkout.html'">
-  <img src="cart-icon.png" alt="Coș" />
-  <div id="cartCount">0</div>
-</div>
-
-<script>
-  const products = {
-    hat: { name: "Palarie porumbei", price: 30, image: "hat.jpg" },
-    sneakers: { name: "Sneakers pentru porumbei", price: 45, image: "sneakers.jpg" },
-    food: { name: "Hrană premium", price: 20, image: "food.jpg" },
-    nest: { name: "Cuib confortabil", price: 50, image: "nest.jpg" },
-  };
-
-  function addToCart(id) {
-    let cart = JSON.parse(localStorage.getItem('cart')) || {};
-    cart[id] = (cart[id] || 0) + 1;
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartCount();
-    alert(`${products[id].name} a fost adăugat în coș!`);
-  }
-
-  function updateCartCount() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || {};
-    let count = 0;
-    for (let key in cart) {
-      count += cart[key];
-    }
-    document.getElementById('cartCount').textContent = count;
-  }
-
-  window.onload = updateCartCount;
-</script>
+    <div class="product">
+      <a href="nest.html">
+        <img src="images/nest.jpg" alt="Cuib porumbel" />
+        Cuib porumbel
+      </a>
+    </div>
+  </div>
 
 </body>
 </html>
