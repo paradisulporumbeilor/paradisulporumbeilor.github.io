@@ -1,122 +1,114 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Paradisul Porumbeilor - Coș</title>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    background: #f0f4f8;
-  }
-  h1 {
-    color: #2c3e50;
-  }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  }
-  th, td {
-    padding: 12px;
-    border-bottom: 1px solid #ddd;
-    text-align: center;
-  }
-  th {
-    background-color: #3498db;
-    color: white;
-  }
-  img {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-  }
-  #emptyMsg {
-    margin-top: 50px;
-    font-size: 18px;
-    color: #555;
-  }
-  #backBtn {
-    display: inline-block;
-    margin-top: 25px;
-    padding: 10px 20px;
-    background-color: #3498db;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-    font-weight: 600;
-  }
-  #backBtn:hover {
-    background-color: #2980b9;
-  }
-  .remove-btn {
-    background-color: #e74c3c;
-    border: none;
-    color: white;
-    padding: 7px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 600;
-  }
-  .remove-btn:hover {
-    background-color: #c0392b;
-  }
-  tfoot td {
-    font-weight: 700;
-    font-size: 18px;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coș - Paradisul Porumbeilor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .cart-container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .item {
+      display: flex;
+      margin-bottom: 20px;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 10px;
+    }
+
+    .item img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+      margin-right: 20px;
+    }
+
+    .details {
+      flex-grow: 1;
+    }
+
+    .total {
+      text-align: right;
+      font-size: 1.2em;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+
+    a.back {
+      display: inline-block;
+      margin-top: 30px;
+      text-decoration: none;
+      background-color: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 6px;
+    }
+  </style>
 </head>
 <body>
 
 <h1>Coșul tău</h1>
+<div class="cart-container" id="cart"></div>
 
-<table id="cartTable" style="display:none;">
-  <thead>
-    <tr>
-      <th>Produs</th>
-      <th>Imagine</th>
-      <th>Cantitate</th>
-      <th>Preț unitar</th>
-      <th>Subtotal</th>
-      <th>Șterge</th>
-    </tr>
-  </thead>
-  <tbody id="cartBody"></tbody>
-  <tfoot>
-    <tr>
-      <td colspan="4" style="text-align:right;">Total:</td>
-      <td id="totalPrice">0 lei</td>
-      <td></td>
-    </tr>
-  </tfoot>
-</table>
-
-<div id="emptyMsg">Coșul este gol.</div>
-
-<a href="index.html" id="backBtn">Înapoi la magazin</a>
+<a href="index.html" class="back">Înapoi la magazin</a>
 
 <script>
   const products = {
-    hat: { name: "Palarie porumbei", price: 30, image: "hat.jpg" },
-    sneakers: { name: "Sneakers pentru porumbei", price: 45, image: "sneakers.jpg" },
-    food: { name: "Hrană premium", price: 20, image: "food.jpg" },
-    nest: { name: "Cuib confortabil", price: 50, image: "nest.jpg" },
+    hat: { name: "Pălărie porumbel", price: 30, image: "hat.jpg" },
+    sneakers: { name: "Sneakers porumbel", price: 45, image: "sneakers.jpg" },
+    food: { name: "Hrană specială", price: 20, image: "food.jpg" },
+    nest: { name: "Cuib porumbel", price: 50, image: "nest.jpg" }
   };
 
-  function renderCart() {
-    const cart = JSON.parse(localStorage.getItem('cart')) || {};
-    const tbody = document.getElementById('cartBody');
-    const cartTable = document.getElementById('cartTable');
-    const emptyMsg = document.getElementById('emptyMsg');
+  const cart = JSON.parse(localStorage.getItem("cart")) || {};
+  const container = document.getElementById("cart");
 
-    tbody.innerHTML = '';
-    let total = 0;
-    let hasItems = false;
+  let total = 0;
 
+  if (Object.keys(cart).length === 0) {
+    container.innerHTML = "<p>Coșul tău este gol.</p>";
+  } else {
     for (let id in cart) {
+      const item = products[id];
       const qty = cart[id];
-      if (qty <= 0) continue;
+      const subtotal = item.price * qty;
+      total += subtotal;
+
+      const div = document.createElement("div");
+      div.className = "item";
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.name}" />
+        <div class="details">
+          <h3>${item.name}</h3>
+          <p>Preț: ${item.price} lei</p>
+          <p>Cantitate: ${qty}</p>
+          <p>Total: ${subtotal} lei</p>
+        </div>
+      `;
+      container.appendChild(div);
+    }
+
+    const totalEl = document.createElement("div");
+    totalEl.className = "total";
+    totalEl.innerText = `Total de plată: ${total} lei`;
+    container.appendChild(totalEl);
+  }
+</script>
+
+</body>
+</html>
