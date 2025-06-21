@@ -5,101 +5,204 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Checkout - Paradisul Porumbeilor</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
+
     body {
-      font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 40px auto;
+      font-family: 'Montserrat', sans-serif;
+      background: #f5f9fa;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      right: 20px;
+      z-index: 1000;
+      padding: 15px 0;
+      background: #f5f9fa;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      box-sizing: border-box;
+      text-align: right;
+      border-bottom: 1px solid #ddd;
+    }
+    header a.cart-link {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+    }
+    header a.cart-link img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      filter: invert(27%) sepia(38%) saturate(2811%) hue-rotate(151deg) brightness(89%) contrast(86%);
+      transition: filter 0.3s ease;
+    }
+    header a.cart-link:hover img {
+      filter: invert(38%) sepia(60%) saturate(4651%) hue-rotate(132deg) brightness(102%) contrast(98%);
+    }
+
+    main {
+      max-width: 900px;
+      margin: 80px auto 40px;
       padding: 0 20px;
-      background-color: #f9f9f9;
-      color: #333;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgb(0 0 0 / 0.1);
+      min-height: 300px;
     }
+
     h1 {
-      color: #0a9396;
-      margin-bottom: 30px;
       text-align: center;
+      font-weight: 600;
+      color: #0a9396;
+      margin: 40px 0 30px;
+      font-size: 2rem;
     }
+
     table {
       width: 100%;
-      border-collapse: collapse;
-      margin-bottom: 30px;
+      border-collapse: separate;
+      border-spacing: 0 12px;
     }
-    th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
+    thead th {
       text-align: left;
-    }
-    th {
+      padding: 12px 20px;
+      font-weight: 600;
+      color: #ffffff;
       background-color: #0a9396;
-      color: white;
+      border-radius: 8px 8px 0 0;
     }
+    tbody tr {
+      background: #f9fbfc;
+      transition: background-color 0.3s ease;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgb(0 0 0 / 0.05);
+      cursor: default;
+    }
+    tbody tr:hover {
+      background-color: #e1f0f0;
+      box-shadow: 0 4px 12px rgb(0 0 0 / 0.12);
+    }
+    tbody td {
+      padding: 15px 20px;
+      vertical-align: middle;
+      font-size: 1rem;
+      border: none;
+    }
+
+    td.product-name {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      font-weight: 600;
+      color: #333;
+    }
+    td.product-name img {
+      width: 70px;
+      height: 70px;
+      border-radius: 10px;
+      object-fit: cover;
+      box-shadow: 0 2px 6px rgb(0 0 0 / 0.1);
+      flex-shrink: 0;
+    }
+
     .total {
       text-align: right;
-      font-weight: bold;
-      font-size: 1.2rem;
+      font-weight: 700;
+      font-size: 1.5rem;
+      color: #005f73;
+      margin-top: 15px;
     }
+
     .empty {
       text-align: center;
-      margin-top: 50px;
-      font-size: 1.2rem;
-      color: #555;
+      font-size: 1.3rem;
+      margin: 50px 0;
+      color: #777;
     }
-    button {
+
+    button#checkout-btn {
+      display: block;
       background-color: #0a9396;
       color: white;
+      font-weight: 600;
       border: none;
-      padding: 12px 25px;
-      font-size: 1rem;
-      border-radius: 6px;
+      border-radius: 25px;
+      padding: 15px 40px;
+      font-size: 1.1rem;
       cursor: pointer;
-      display: block;
-      margin: 0 auto;
+      margin: 30px auto 15px;
+      box-shadow: 0 4px 12px rgb(10 147 150 / 0.3);
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
     }
-    button:hover {
-      background-color: #005f73;
+    button#checkout-btn:hover {
+      background-color: #006c70;
+      box-shadow: 0 6px 18px rgb(0 111 112 / 0.5);
     }
+
     a.back {
       display: block;
       text-align: center;
-      margin-top: 20px;
+      margin: 0 auto 40px;
+      font-weight: 600;
+      color: #0a9396;
       text-decoration: none;
-      color: #005f73;
-      font-weight: bold;
+      font-size: 1.1rem;
+      transition: color 0.3s ease;
+      max-width: 180px;
+      padding: 12px 0;
+      border-radius: 30px;
+      box-shadow: 0 2px 10px rgb(10 147 150 / 0.25);
+      user-select: none;
     }
     a.back:hover {
-      text-decoration: underline;
+      color: #004c4d;
+      box-shadow: 0 4px 15px rgb(0 76 77 / 0.4);
     }
   </style>
 </head>
 <body>
 
-  <h1>Coșul tău - Paradisul Porumbeilor</h1>
+  <header>
+    <a href="index.html" class="cart-link" title="Înapoi la magazin">
+      <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Magazin" />
+    </a>
+  </header>
 
-  <table id="cart-table" style="display:none;">
-    <thead>
-      <tr>
-        <th>Produs</th>
-        <th>Cantitate</th>
-        <th>Preț unitar</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody id="cart-body"></tbody>
-  </table>
+  <main>
+    <h1>Coșul tău - Paradisul Porumbeilor</h1>
 
-  <p id="empty-msg" class="empty">Coșul tău este gol.</p>
+    <table id="cart-table" style="display:none;">
+      <thead>
+        <tr>
+          <th>Produs</th>
+          <th>Cantitate</th>
+          <th>Preț unitar</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody id="cart-body"></tbody>
+    </table>
 
-  <p id="total-price" class="total"></p>
+    <p id="empty-msg" class="empty">Coșul tău este gol.</p>
 
-  <button id="checkout-btn" style="display:none;">Finalizează comanda</button>
+    <p id="total-price" class="total"></p>
+
+    <button id="checkout-btn" style="display:none;">Finalizează comanda</button>
+  </main>
 
   <a href="index.html" class="back">← Înapoi la magazin</a>
 
   <script>
     const products = {
-      "hat": { name: "Pălărie porumbel", price: 50 },
-      "sneakers": { name: "Adidași porumbel", price: 80 },
-      "food": { name: "Mâncare porumbel", price: 30 },
-      "nest": { name: "Cuib porumbel", price: 120 }
+      "hat": { name: "Pălărie porumbel", price: 50, img: "images/hat.jpg" },
+      "sneakers": { name: "Adidași porumbel", price: 80, img: "images/sneakers.jpg" },
+      "food": { name: "Mâncare porumbel", price: 30, img: "images/food.jpg" },
+      "nest": { name: "Cuib porumbel", price: 120, img: "images/nest.jpg" }
     };
 
     function loadCart() {
@@ -125,7 +228,10 @@
 
           const row = document.createElement('tr');
           row.innerHTML = `
-            <td>${product.name}</td>
+            <td class="product-name">
+              <img src="${product.img}" alt="${product.name}" />
+              ${product.name}
+            </td>
             <td>${quantity}</td>
             <td>${product.price} RON</td>
             <td>${subtotal} RON</td>
@@ -158,3 +264,4 @@
 
 </body>
 </html>
+
