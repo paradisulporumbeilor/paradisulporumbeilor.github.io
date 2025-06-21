@@ -3,80 +3,70 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Coșul tău - Paradisul Porumbeilor</title>
+<title>Paradisul Porumbeilor - Coș</title>
 <style>
   body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #f9fafb;
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
-    color: #333;
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: #f0f4f8;
   }
   h1 {
-    text-align: center;
-    margin-bottom: 30px;
-    color: #1f2937;
+    color: #2c3e50;
   }
   table {
     width: 100%;
     border-collapse: collapse;
     background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgb(0 0 0 / 0.1);
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
   th, td {
-    padding: 14px 12px;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
     text-align: center;
-    border-bottom: 1px solid #e5e7eb;
   }
   th {
-    background: #e0e7ff;
-    font-weight: 600;
-    color: #1e40af;
+    background-color: #3498db;
+    color: white;
   }
-  td img {
+  img {
     width: 80px;
     height: 80px;
     object-fit: contain;
   }
-  .remove-btn {
-    background: #ef4444;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    font-weight: 600;
-    transition: background-color 0.2s ease-in-out;
-  }
-  .remove-btn:hover {
-    background: #b91c1c;
-  }
   #emptyMsg {
-    text-align: center;
-    font-style: italic;
-    margin-top: 40px;
-    color: #666;
-  }
-  #totalRow td {
-    font-weight: 700;
-    font-size: 1.1rem;
+    margin-top: 50px;
+    font-size: 18px;
+    color: #555;
   }
   #backBtn {
     display: inline-block;
-    margin-top: 30px;
-    background-color: #2563eb;
+    margin-top: 25px;
+    padding: 10px 20px;
+    background-color: #3498db;
     color: white;
-    padding: 12px 20px;
-    border-radius: 8px;
+    border-radius: 5px;
     text-decoration: none;
     font-weight: 600;
-    transition: background-color 0.2s ease-in-out;
   }
   #backBtn:hover {
-    background-color: #1e40af;
+    background-color: #2980b9;
+  }
+  .remove-btn {
+    background-color: #e74c3c;
+    border: none;
+    color: white;
+    padding: 7px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .remove-btn:hover {
+    background-color: #c0392b;
+  }
+  tfoot td {
+    font-weight: 700;
+    font-size: 18px;
   }
 </style>
 </head>
@@ -97,7 +87,7 @@
   </thead>
   <tbody id="cartBody"></tbody>
   <tfoot>
-    <tr id="totalRow">
+    <tr>
       <td colspan="4" style="text-align:right;">Total:</td>
       <td id="totalPrice">0 lei</td>
       <td></td>
@@ -111,48 +101,32 @@
 
 <script>
   const products = {
-    hat: {
-      name: "Palarie porumbei",
-      price: 30,
-      image: "hat.jpg"
-    },
-    sneakers: {
-      name: "Sneakers pentru porumbei",
-      price: 45,
-      image: "sneakers.jpg"
-    },
-    food: {
-      name: "Hrană premium",
-      price: 20,
-      image: "food.jpg"
-    },
-    nest: {
-      name: "Cuib confortabil",
-      price: 50,
-      image: "nest.jpg"
-    }
+    hat: { name: "Palarie porumbei", price: 30, image: "hat.jpg" },
+    sneakers: { name: "Sneakers pentru porumbei", price: 45, image: "sneakers.jpg" },
+    food: { name: "Hrană premium", price: 20, image: "food.jpg" },
+    nest: { name: "Cuib confortabil", price: 50, image: "nest.jpg" },
   };
 
   function renderCart() {
     const cart = JSON.parse(localStorage.getItem('cart')) || {};
     const tbody = document.getElementById('cartBody');
-    const emptyMsg = document.getElementById('emptyMsg');
     const cartTable = document.getElementById('cartTable');
-    tbody.innerHTML = '';
+    const emptyMsg = document.getElementById('emptyMsg');
 
+    tbody.innerHTML = '';
     let total = 0;
-    let itemsCount = 0;
+    let hasItems = false;
 
     for (let id in cart) {
       const qty = cart[id];
       if (qty <= 0) continue;
-      itemsCount += qty;
+      hasItems = true;
+
       const prod = products[id];
       const subtotal = prod.price * qty;
       total += subtotal;
 
       const row = document.createElement('tr');
-
       row.innerHTML = `
         <td>${prod.name}</td>
         <td><img src="${prod.image}" alt="${prod.name}"></td>
@@ -161,17 +135,16 @@
         <td>${subtotal} lei</td>
         <td><button class="remove-btn" onclick="removeFromCart('${id}')">Șterge</button></td>
       `;
-
       tbody.appendChild(row);
     }
 
-    if (itemsCount === 0) {
-      cartTable.style.display = 'none';
-      emptyMsg.style.display = 'block';
-    } else {
+    if (hasItems) {
       cartTable.style.display = 'table';
       emptyMsg.style.display = 'none';
       document.getElementById('totalPrice').textContent = total + ' lei';
+    } else {
+      cartTable.style.display = 'none';
+      emptyMsg.style.display = 'block';
     }
   }
 
@@ -182,9 +155,7 @@
     renderCart();
   }
 
-  window.onload = () => {
-    renderCart();
-  }
+  window.onload = renderCart;
 </script>
 
 </body>
