@@ -3,200 +3,86 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Paradisul Porumbeilor - Magazin</title>
+  <title>Paradisul Porumbeilor - Magazin Accesorii</title>
   <style>
-    /* Reset și font */
-    * {
-      box-sizing: border-box;
-    }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      background: #f9f9f9;
+      font-family: Arial, sans-serif;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 0 20px;
+      background-color: #f0f4f8;
       color: #333;
-      padding: 20px;
     }
-
-    header {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    header h1 {
-      font-weight: 700;
-      font-size: 2.5rem;
-      color: #005f73;
-      margin: 0;
-    }
-    header p {
+    h1 {
       color: #0a9396;
-      font-size: 1.1rem;
-      margin-top: 5px;
+      text-align: center;
+      margin-bottom: 40px;
     }
-
-    /* Container produse */
-    #products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-      gap: 20px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .product-card {
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      overflow: hidden;
+    .products {
       display: flex;
-      flex-direction: column;
+      flex-wrap: wrap;
+      gap: 25px;
+      justify-content: center;
+    }
+    .product {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      width: 200px;
+      text-align: center;
+      padding: 15px;
       transition: transform 0.2s ease;
     }
-    .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+    .product:hover {
+      transform: scale(1.05);
     }
-
-    .product-image {
+    .product img {
       width: 100%;
-      height: 180px;
-      object-fit: cover;
-      border-bottom: 1px solid #ddd;
-    }
-
-    .product-info {
-      padding: 15px;
-      flex-grow: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .product-info h3 {
-      margin: 0 0 10px;
-      font-size: 1.25rem;
-      color: #005f73;
-    }
-    .product-info h3 a {
-      text-decoration: none;
-      color: inherit;
-    }
-    .product-info p.price {
-      font-weight: 600;
-      font-size: 1.1rem;
-      color: #ee6c4d;
-      margin: 0 0 15px;
-    }
-
-    button.add-to-cart {
-      background-color: #0a9396;
-      border: none;
-      padding: 10px 20px;
-      color: white;
       border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      align-self: flex-start;
+      margin-bottom: 15px;
     }
-    button.add-to-cart:hover {
-      background-color: #005f73;
-    }
-
-    /* Icon coș fix */
-    #cart-icon {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 36px;
-      background-color: #0a9396;
-      color: white;
-      width: 55px;
-      height: 55px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      z-index: 1000;
-    }
-    #cart-icon:hover {
-      background-color: #005f73;
+    .product a {
+      text-decoration: none;
+      color: #005f73;
+      font-weight: bold;
+      font-size: 1.1rem;
+      display: block;
     }
   </style>
 </head>
 <body>
 
-<header>
-  <h1>Paradisul Porumbeilor</h1>
-  <p>Accesorii premium pentru porumbei fericiți</p>
-</header>
+  <h1>Paradisul Porumbeilor - Magazin Accesorii</h1>
 
-<section id="products">
-  <div class="product-card" data-id="1" data-name="Pălărie porumbel" data-price="15">
-    <img src="images/hat.jpg" alt="Pălărie porumbel" class="product-image" />
-    <div class="product-info">
-      <h3><a href="product1.html">Pălărie porumbel</a></h3>
-      <p class="price">15 RON</p>
-      <button class="add-to-cart" onclick="addToCart(1)">Adaugă în coș</button>
+  <div class="products">
+    <div class="product">
+      <a href="hat.html">
+        <img src="images/hat.jpg" alt="Pălărie porumbel" />
+        Pălărie porumbel
+      </a>
+    </div>
+
+    <div class="product">
+      <a href="sneakers.html">
+        <img src="images/sneakers.jpg" alt="Adidași porumbel" />
+        Adidași porumbel
+      </a>
+    </div>
+
+    <div class="product">
+      <a href="food.html">
+        <img src="images/food.jpg" alt="Mâncare porumbel" />
+        Mâncare porumbel
+      </a>
+    </div>
+
+    <div class="product">
+      <a href="nest.html">
+        <img src="images/nest.jpg" alt="Cuib porumbel" />
+        Cuib porumbel
+      </a>
     </div>
   </div>
-
-  <div class="product-card" data-id="2" data-name="Adidași porumbel" data-price="45">
-    <img src="images/sneakers.jpg" alt="Adidași porumbel" class="product-image" />
-    <div class="product-info">
-      <h3><a href="product2.html">Adidași porumbel</a></h3>
-      <p class="price">45 RON</p>
-      <button class="add-to-cart" onclick="addToCart(2)">Adaugă în coș</button>
-    </div>
-  </div>
-
-  <div class="product-card" data-id="3" data-name="Mâncare porumbel" data-price="20">
-    <img src="images/food.jpg" alt="Mâncare porumbel" class="product-image" />
-    <div class="product-info">
-      <h3><a href="product3.html">Mâncare porumbel</a></h3>
-      <p class="price">20 RON</p>
-      <button class="add-to-cart" onclick="addToCart(3)">Adaugă în coș</button>
-    </div>
-  </div>
-
-  <div class="product-card" data-id="4" data-name="Cuib porumbel" data-price="30">
-    <img src="images/nest.jpg" alt="Cuib porumbel" class="product-image" />
-    <div class="product-info">
-      <h3><a href="product4.html">Cuib (Nest) porumbel</a></h3>
-      <p class="price">30 RON</p>
-      <button class="add-to-cart" onclick="addToCart(4)">Adaugă în coș</button>
-    </div>
-  </div>
-</section>
-
-<div id="cart-icon" title="Vezi coșul" onclick="goToCheckout()">🛒</div>
-
-<script>
-  function addToCart(productId) {
-    const productElem = document.querySelector(`.product-card[data-id='${productId}']`);
-    const name = productElem.getAttribute('data-name');
-    const price = parseFloat(productElem.getAttribute('data-price'));
-
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-
-    const existing = cart.find(item => item.id === productId);
-    if (existing) {
-      existing.qty++;
-    } else {
-      cart.push({ id: productId, name, price, qty: 1 });
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-    alert(`${name} a fost adăugat în coș!`);
-  }
-
-  function goToCheckout() {
-    window.location.href = 'checkout.html';
-  }
-</script>
 
 </body>
 </html>
