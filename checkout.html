@@ -3,158 +3,166 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Checkout - Paradisul Porumbeilor</title>
+  <title>Coș de cumpărături - Paradisul Porumbeilor</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 700px;
-      margin: 40px auto;
-      padding: 0 20px;
-      background-color: #f9f9f9;
-      color: #333;
+      margin: 40px;
+      background: #f0f4f8;
     }
     h1 {
-      color: #0a9396;
       margin-bottom: 30px;
-      text-align: center;
     }
     table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 30px;
+      background: white;
+      box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
+      border-radius: 10px;
+      overflow: hidden;
     }
     th, td {
-      border: 1px solid #ddd;
-      padding: 12px;
+      padding: 15px;
       text-align: left;
+      border-bottom: 1px solid #ddd;
+      vertical-align: middle;
     }
     th {
-      background-color: #0a9396;
+      background-color: #007bff;
       color: white;
+      font-weight: normal;
     }
-    .total {
-      text-align: right;
+    td img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+    .total-row td {
       font-weight: bold;
-      font-size: 1.2rem;
-    }
-    .empty {
-      text-align: center;
-      margin-top: 50px;
-      font-size: 1.2rem;
-      color: #555;
+      font-size: 1.1rem;
+      background-color: #e9f0fb;
     }
     button {
-      background-color: #0a9396;
+      margin-top: 20px;
+      background: #28a745;
       color: white;
       border: none;
+      border-radius: 5px;
       padding: 12px 25px;
-      font-size: 1rem;
-      border-radius: 6px;
+      font-size: 1.1rem;
       cursor: pointer;
-      display: block;
-      margin: 0 auto;
+      transition: background 0.3s;
     }
     button:hover {
-      background-color: #005f73;
+      background: #1e7e34;
     }
-    a.back {
-      display: block;
-      text-align: center;
-      margin-top: 20px;
+    #back-link {
+      display: inline-block;
+      margin-bottom: 25px;
+      color: #007bff;
       text-decoration: none;
-      color: #005f73;
       font-weight: bold;
     }
-    a.back:hover {
+    #back-link:hover {
       text-decoration: underline;
     }
   </style>
 </head>
 <body>
 
-  <h1>Coșul tău - Paradisul Porumbeilor</h1>
+  <a href="index.html" id="back-link">&larr; Înapoi la magazin</a>
+  <h1>Coșul tău de cumpărături</h1>
 
-  <table id="cart-table" style="display:none;">
+  <table id="cart-table">
     <thead>
       <tr>
         <th>Produs</th>
+        <th>Imagine</th>
+        <th>Preț</th>
         <th>Cantitate</th>
-        <th>Preț unitar</th>
         <th>Total</th>
       </tr>
     </thead>
-    <tbody id="cart-body"></tbody>
+    <tbody>
+      <!-- Produse adăugate vor apărea aici -->
+    </tbody>
   </table>
 
-  <p id="empty-msg" class="empty">Coșul tău este gol.</p>
+  <button id="checkout-btn">Finalizează comanda</button>
 
-  <p id="total-price" class="total"></p>
+<script>
+  const products = {
+    hat: { name: "Pălărie porumbel", price: 50, img: "images/hat.jpg" },
+    sneakers: { name: "Adidași porumbel", price: 80, img: "images/sneakers.jpg" },
+    food: { name: "Mâncare porumbel", price: 30, img: "images/food.jpg" },
+    nest: { name: "Cuib porumbel", price: 120, img: "images/nest.jpg" }
+  };
 
-  <button id="checkout-btn" style="display:none;">Finalizează comanda</button>
+  function loadCart() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || {};
+    const tbody = document.querySelector('#cart-table tbody');
+    tbody.innerHTML = '';
 
-  <a href="index.html" class="back">← Înapoi la magazin</a>
+    let grandTotal = 0;
+    for (const id in cart) {
+      const quantity = cart[id];
+      const product = products[id];
+      if (!product) continue;
+      const totalPrice = product.price * quantity;
+      grandTotal += totalPrice;
 
-  <script>
-    const products = {
-      "hat": { name: "Pălărie porumbel", price: 50 },
-      "sneakers": { name: "Adidași porumbel", price: 80 },
-      "food": { name: "Mâncare porumbel", price: 30 },
-      "nest": { name: "Cuib porumbel", price: 120 }
-    };
+      const tr = document.createElement('tr');
 
-    function loadCart() {
-      const cart = JSON.parse(localStorage.getItem('cart')) || {};
-      const tbody = document.getElementById('cart-body');
-      const table = document.getElementById('cart-table');
-      const emptyMsg = document.getElementById('empty-msg');
-      const totalPriceP = document.getElementById('total-price');
-      const checkoutBtn = document.getElementById('checkout-btn');
+      const tdName = document.createElement('td');
+      tdName.textContent = product.name;
+      tr.appendChild(tdName);
 
-      tbody.innerHTML = '';
+      const tdImg = document.createElement('td');
+      const img = document.createElement('img');
+      img.src = product.img;
+      img.alt = product.name;
+      tdImg.appendChild(img);
+      tr.appendChild(tdImg);
 
-      let total = 0;
-      let hasItems = false;
+      const tdPrice = document.createElement('td');
+      tdPrice.textContent = product.price + " RON";
+      tr.appendChild(tdPrice);
 
-      for (const id in cart) {
-        if (cart[id] > 0 && products[id]) {
-          hasItems = true;
-          const product = products[id];
-          const quantity = cart[id];
-          const subtotal = product.price * quantity;
-          total += subtotal;
+      const tdQty = document.createElement('td');
+      tdQty.textContent = quantity;
+      tr.appendChild(tdQty);
 
-          const row = document.createElement('tr');
-          row.innerHTML = `
-            <td>${product.name}</td>
-            <td>${quantity}</td>
-            <td>${product.price} RON</td>
-            <td>${subtotal} RON</td>
-          `;
-          tbody.appendChild(row);
-        }
-      }
+      const tdTotal = document.createElement('td');
+      tdTotal.textContent = totalPrice + " RON";
+      tr.appendChild(tdTotal);
 
-      if (hasItems) {
-        table.style.display = 'table';
-        emptyMsg.style.display = 'none';
-        totalPriceP.textContent = `Total de plată: ${total} RON`;
-        checkoutBtn.style.display = 'block';
-      } else {
-        table.style.display = 'none';
-        emptyMsg.style.display = 'block';
-        totalPriceP.textContent = '';
-        checkoutBtn.style.display = 'none';
-      }
+      tbody.appendChild(tr);
     }
 
-    document.getElementById('checkout-btn').addEventListener('click', () => {
-      alert('Comanda ta a fost înregistrată. Mulțumim pentru cumpărături!');
-      localStorage.removeItem('cart');
-      loadCart();
-    });
+    // Rand total general
+    const trTotal = document.createElement('tr');
+    trTotal.classList.add('total-row');
+    trTotal.innerHTML = `<td colspan="4">Total general:</td><td>${grandTotal} RON</td>`;
+    tbody.appendChild(trTotal);
 
+    // Dacă coșul e gol, afișează mesaj
+    if (Object.keys(cart).length === 0) {
+      tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 20px;">Coșul este gol.</td></tr>';
+      document.getElementById('checkout-btn').style.display = 'none';
+    } else {
+      document.getElementById('checkout-btn').style.display = 'inline-block';
+    }
+  }
+
+  document.getElementById('checkout-btn').addEventListener('click', () => {
+    alert('Comanda ta a fost înregistrată. Mulțumim pentru cumpărături!');
+    localStorage.removeItem('cart');
     loadCart();
-  </script>
+  });
+
+  window.onload = loadCart;
+</script>
 
 </body>
 </html>
