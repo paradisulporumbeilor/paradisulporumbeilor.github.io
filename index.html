@@ -1,191 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Pigeon Palace | Accessories for Fancy Birds</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paradisul Porumbeilor</title>
   <style>
     body {
-      font-family: sans-serif;
-      margin: 0;
-      padding: 0;
-      background: #f3f4f6;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f4f4;
     }
-
-    header {
-      background: #2d3748;
-      color: white;
-      padding: 1rem;
+    h1 {
       text-align: center;
+      color: #444;
     }
-
-    nav ul {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      list-style: none;
-      padding: 0;
-      margin: 0.5rem 0 0;
-    }
-
-    nav a {
-      color: white;
-      text-decoration: none;
-    }
-
-    .products {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 2rem;
-      padding: 2rem;
-    }
-
     .product {
+      max-width: 600px;
       background: white;
-      padding: 1rem;
-      border-radius: 10px;
-      width: 220px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      text-align: center;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-
     .product img {
-      width: 100%;
-      border-radius: 6px;
+      max-width: 100%;
+      border-radius: 10px;
     }
-
+    .product h2 {
+      margin-top: 10px;
+    }
+    .price {
+      color: green;
+      font-weight: bold;
+    }
     button {
-      background: #3b82f6;
+      background: #008CBA;
       color: white;
-      padding: 0.5rem 1rem;
+      padding: 10px 15px;
       border: none;
       border-radius: 6px;
       cursor: pointer;
-      margin-top: 0.5rem;
     }
-
     button:hover {
-      background: #2563eb;
-    }
-
-    #cart-sidebar {
-      position: fixed;
-      top: 0;
-      right: 0;
-      background: white;
-      width: 320px;
-      height: 100%;
-      box-shadow: -2px 0 10px rgba(0,0,0,0.2);
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      z-index: 999;
-    }
-
-    #cart-sidebar.hidden {
-      display: none;
-    }
-
-    #cart-items {
-      flex-grow: 1;
-      overflow-y: auto;
-      margin-bottom: 1rem;
-      list-style: none;
-      padding: 0;
-    }
-
-    #cart-items li {
-      margin-bottom: 0.5rem;
-      border-bottom: 1px solid #ddd;
-      padding-bottom: 0.3rem;
+      background: #005f7a;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Pigeon Palace</h1>
-    <nav>
-      <ul>
-        <li><a href="#">Shop</a></li>
-        <li><a href="#" onclick="showCart()">Cart (<span id="cart-count">0</span>)</a></li>
-      </ul>
-    </nav>
-  </header>
 
-  <main>
-    <section class="products">
-      <article class="product">
-        <img src="images/hat.jpg" alt="Tiny Pigeon Hat">
-        <h2>Tiny Pigeon Hat</h2>
-        <p>$5.99</p>
-        <button onclick="addToCart('Tiny Pigeon Hat', 5.99)">Add to Cart</button>
-      </article>
-      <article class="product">
-        <img src="images/boots.jpg" alt="Miniature Pigeon Boots">
-        <h2>Miniature Pigeon Boots</h2>
-        <p>$7.49</p>
-        <button onclick="addToCart('Miniature Pigeon Boots', 7.49)">Add to Cart</button>
-      </article>
-      <article class="product">
-        <img src="images/cape.jpg" alt="Hero Pigeon Cape">
-        <h2>Hero Pigeon Cape</h2>
-        <p>$6.25</p>
-        <button onclick="addToCart('Hero Pigeon Cape', 6.25)">Add to Cart</button>
-      </article>
-    </section>
-  </main>
+  <h1>Paradisul Porumbeilor</h1>
 
-  <aside id="cart-sidebar" class="hidden">
-    <h3>Your Cart</h3>
-    <ul id="cart-items"></ul>
-    <p><strong>Total:</strong> $<span id="total-price">0.00</span></p>
-    <button onclick="checkout()">Checkout</button>
-    <button onclick="hideCart()">Close</button>
-  </aside>
+  <div class="product">
+    <img src="images/hat.jpg" alt="Pălărie pentru porumbel">
+    <h2>Pălărie elegantă pentru porumbel</h2>
+    <p>Transformă-ți porumbelul într-un adevărat domn!</p>
+    <p class="price">49 RON</p>
+    <button>Adaugă în coș</button>
+  </div>
 
-  <script>
-    let cart = JSON.parse(localStorage.getItem("cart")) || [];
-
-    function addToCart(product, price) {
-      cart.push({ product, price });
-      localStorage.setItem("cart", JSON.stringify(cart));
-      updateCartCount();
-    }
-
-    function updateCartCount() {
-      document.getElementById("cart-count").textContent = cart.length;
-    }
-
-    function showCart() {
-      document.getElementById("cart-sidebar").classList.remove("hidden");
-      const list = document.getElementById("cart-items");
-      list.innerHTML = "";
-      let total = 0;
-      cart.forEach(item => {
-        const li = document.createElement("li");
-        li.textContent = `${item.product} - $${item.price.toFixed(2)}`;
-        list.appendChild(li);
-        total += item.price;
-      });
-      document.getElementById("total-price").textContent = total.toFixed(2);
-    }
-
-    function hideCart() {
-      document.getElementById("cart-sidebar").classList.add("hidden");
-    }
-
-    function checkout() {
-      alert("Thank you for shopping with us! This is a demo.");
-      cart = [];
-      localStorage.setItem("cart", JSON.stringify(cart));
-      updateCartCount();
-      hideCart();
-    }
-
-    window.onload = updateCartCount;
-  </script>
 </body>
-</html>
-
 </html>
