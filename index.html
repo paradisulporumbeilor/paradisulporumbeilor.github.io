@@ -9,6 +9,7 @@
     font-family: Arial, sans-serif;
     padding: 20px;
     background: #f9f9f9;
+    position: relative;
   }
   h1 {
     text-align: center;
@@ -57,6 +58,29 @@
   button:hover {
     background: #005f73;
   }
+  /* Iconita cos */
+  .cart-icon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #008CBA;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cart-icon svg {
+    fill: white;
+    width: 28px;
+    height: 28px;
+  }
+  .cart-icon:hover {
+    background: #005f73;
+  }
 </style>
 </head>
 <body>
@@ -102,6 +126,12 @@
   </div>
 
 </div>
+
+<!-- Iconița coș -->
+<a href="checkout.html" class="cart-icon" title="Vezi coșul">
+  <!-- SVG icon pentru coș -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-12.416-2.215l1.791-7.083h12.29l-1.609 6.368a1 1 0 11-1.943-.49l1.021-4.04H8.96l-1.256 4.968a1 1 0 11-1.94-.23zm14.456-4.612a1 1 0 00-1.06-.756H6.37l-.41-1.621a1 1 0 00-.97-.728H2a1 1 0 100 2h1.888l1.727 6.82a1 1 0 101.934-.488l-.47-1.854h9.668a1 1 0 001-.754z"/></svg>
+</a>
 
 </body>
 </html>
