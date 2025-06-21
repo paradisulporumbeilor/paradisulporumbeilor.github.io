@@ -7,53 +7,68 @@
   <style>
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      max-width: 700px;
-      margin: 30px auto;
-      padding: 20px;
-      background: #f9f9f9;
-      color: #333;
+      background-color: #f5f7ff;
+      margin: 0; padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      text-align: center;
     }
     h1 {
-      color: #005f73;
-      margin-bottom: 10px;
+      color: #3a49e0;
+      margin-bottom: 15px;
     }
     img {
       max-width: 100%;
       border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      margin-bottom: 20px;
+      box-shadow: 0 6px 15px rgba(58,73,224,0.3);
     }
     p.description {
-      margin-top: 20px;
       font-size: 1.1rem;
+      color: #444;
       line-height: 1.5;
+      margin-bottom: 25px;
     }
-    a.back {
+    p.price {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #3751ff;
+      margin-bottom: 30px;
+    }
+    a.back-link {
       display: inline-block;
-      margin-top: 25px;
-      text-decoration: none;
-      color: #0a9396;
-      font-weight: 600;
-      border: 2px solid #0a9396;
-      padding: 8px 15px;
-      border-radius: 6px;
-      transition: background-color 0.3s ease;
-    }
-    a.back:hover {
-      background-color: #0a9396;
+      padding: 12px 25px;
+      background-color: #3751ff;
       color: white;
+      text-decoration: none;
+      border-radius: 30px;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+      user-select: none;
+    }
+    a.back-link:hover {
+      background-color: #2a3bbb;
     }
   </style>
 </head>
 <body>
-
-<h1>Adidași porumbel</h1>
-<img src="images/sneakers.jpg" alt="Adidași porumbel" />
-
-<p class="description">
-  Acești adidași special creați pentru porumbei oferă confort maxim și protecție în timpul zborului și plimbărilor prin oraș.
-</p>
-
-<a class="back" href="index.html">&larr; Înapoi la magazin</a>
-
+  <div class="container">
+    <h1>Adidași porumbel</h1>
+    <img src="images/sneakers.jpg" alt="Adidași porumbel" />
+    <p class="description">
+      Adidași porumbel moderni, cu talpă flexibilă și design aerodinamic pentru zboruri rapide.
+      Confortabili și rezistenți, sunt alegerea perfectă pentru orice porumbel activ.
+    </p>
+    <p class="price">Preț: 45 RON</p>
+    <a href="index.html" class="back-link">⬅ Înapoi la magazin</a>
+  </div>
 </body>
 </html>
