@@ -6,33 +6,11 @@
   <title>Paradisul Porumbeilor - Magazin</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
-    .product {
-      border: 1px solid #ccc;
-      padding: 10px;
-      margin-bottom: 15px;
-      display: flex;
-      align-items: center;
-    }
-    .product img {
-      width: 100px;
-      height: 100px;
-      object-fit: cover;
-      margin-right: 15px;
-    }
-    .product-info {
-      flex-grow: 1;
-    }
-    button {
-      padding: 8px 15px;
-      cursor: pointer;
-    }
-    #cart-icon {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      font-size: 30px;
-      cursor: pointer;
-    }
+    .product { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; display: flex; align-items: center; }
+    .product img { width: 100px; height: 100px; object-fit: cover; margin-right: 15px; }
+    .product-info { flex-grow: 1; }
+    button { padding: 8px 15px; cursor: pointer; }
+    #cart-icon { position: fixed; top: 20px; right: 20px; cursor: pointer; font-size: 24px; }
   </style>
 </head>
 <body>
@@ -67,10 +45,10 @@
     </div>
   </div>
 
-  <div class="product" data-id="4" data-name="Cuib porumbel" data-price="30">
-    <img src="images/nest.jpg" alt="Cuib porumbel" />
+  <div class="product" data-id="4" data-name="Accesoriu porumbel" data-price="30">
+    <img src="images/accessory.jpg" alt="Accesoriu" />
     <div class="product-info">
-      <h3><a href="product4.html">Cuib (Nest) porumbel</a></h3>
+      <h3><a href="product4.html">Accesoriu porumbel</a></h3>
       <p>Preț: 30 RON</p>
       <button onclick="addToCart(4)">Adaugă în coș</button>
     </div>
