@@ -55,12 +55,17 @@
       border-radius: 6px;
       margin-bottom: 15px;
     }
-    .product a {
-      text-decoration: none;
-      color: #005f73;
+    .product button {
+      background-color: #0a9396;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
       font-weight: bold;
-      font-size: 1.1rem;
-      display: block;
+    }
+    .product button:hover {
+      background-color: #005f73;
     }
   </style>
 </head>
@@ -77,31 +82,48 @@
     <div class="product">
       <a href="hat.html">
         <img src="images/hat.jpg" alt="Pălărie porumbel" />
-        Pălărie porumbel
+        <h3>Pălărie porumbel</h3>
       </a>
+      <button onclick="addToCart('hat')">Adaugă în coș</button>
     </div>
 
     <div class="product">
       <a href="sneakers.html">
         <img src="images/sneakers.jpg" alt="Adidași porumbel" />
-        Adidași porumbel
+        <h3>Adidași porumbel</h3>
       </a>
+      <button onclick="addToCart('sneakers')">Adaugă în coș</button>
     </div>
 
     <div class="product">
       <a href="food.html">
         <img src="images/food.jpg" alt="Mâncare porumbel" />
-        Mâncare porumbel
+        <h3>Mâncare porumbel</h3>
       </a>
+      <button onclick="addToCart('food')">Adaugă în coș</button>
     </div>
 
     <div class="product">
       <a href="nest.html">
         <img src="images/nest.jpg" alt="Cuib porumbel" />
-        Cuib porumbel
+        <h3>Cuib porumbel</h3>
       </a>
+      <button onclick="addToCart('nest')">Adaugă în coș</button>
     </div>
   </div>
+
+<script>
+  function addToCart(productId) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || {};
+    if(cart[productId]) {
+      cart[productId]++;
+    } else {
+      cart[productId] = 1;
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert('Produs adăugat în coș!');
+  }
+</script>
 
 </body>
 </html>
