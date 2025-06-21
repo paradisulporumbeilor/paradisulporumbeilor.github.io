@@ -1,126 +1,146 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <title>Paradisul Porumbeilor</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      background: #f0f0f5;
-    }
-
-    header {
-      background-color: #2c3e50;
-      color: white;
-      padding: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    header h1 {
-      margin: 0;
-    }
-
-    .cart-icon {
-      width: 30px;
-      cursor: pointer;
-    }
-
-    .products {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 30px;
-    }
-
-    .product {
-      background: white;
-      border-radius: 10px;
-      padding: 15px;
-      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-      text-align: center;
-      transition: transform 0.2s;
-    }
-
-    .product:hover {
-      transform: translateY(-5px);
-    }
-
-    .product img {
-      width: 100%;
-      height: 200px;
-      object-fit: contain;
-      border-radius: 8px;
-    }
-
-    .product h3 {
-      margin: 10px 0 5px;
-    }
-
-    .product p {
-      margin: 5px 0;
-    }
-
-    .product button {
-      background-color: #3498db;
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 10px;
-    }
-
-    .product button:hover {
-      background-color: #2980b9;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paradisul Porumbeilor - Magazin</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background: #f9f9f9;
+    position: relative;
+  }
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  .store {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0 auto 40px auto;
+  }
+  .product {
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  .product a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .product img {
+    width: 100%;
+    max-height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  .price {
+    color: green;
+    font-weight: bold;
+    margin: 8px 0;
+    font-size: 1.2em;
+  }
+  button {
+    background: #008CBA;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  button:hover {
+    background: #005f73;
+  }
+  /* Iconita cos */
+  .cart-icon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #008CBA;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cart-icon svg {
+    fill: white;
+    width: 28px;
+    height: 28px;
+  }
+  .cart-icon:hover {
+    background: #005f73;
+  }
+</style>
+<script>
+  function addToCart(product) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.push(product);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    alert(product.name + ' a fost adăugat în coș!');
+  }
+</script>
 </head>
 <body>
 
-<header>
-  <h1>Paradisul Porumbeilor</h1>
-  <a href="checkout.html"><img src="cart.png" class="cart-icon" alt="Cart"></a>
-</header>
+<h1>Paradisul Porumbeilor - Magazin</h1>
 
-<div class="products">
+<div class="store">
+
   <div class="product">
-    <img src="hat.jpg" alt="Pălărie porumbel">
-    <h3>Pălărie porumbel</h3>
-    <p>30 lei</p>
-    <button onclick="addToCart('hat')">Adaugă în coș</button>
+    <a href="hat.html">
+      <img src="images/hat.jpg" alt="Pălărie pentru porumbel" />
+      <h2>Pălărie Elegantă</h2>
+      <p class="price">49 RON</p>
+    </a>
+    <button onclick="addToCart({name: 'Pălărie Elegantă', price: 49});">Adaugă în coș</button>
   </div>
+
   <div class="product">
-    <img src="sneakers.jpg" alt="Sneakers porumbel">
-    <h3>Sneakers porumbel</h3>
-    <p>45 lei</p>
-    <button onclick="addToCart('sneakers')">Adaugă în coș</button>
+    <a href="sneakers.html">
+      <img src="images/sneakers.jpg" alt="Adidași pentru porumbel" />
+      <h2>Adidași Sport</h2>
+      <p class="price">79 RON</p>
+    </a>
+    <button onclick="addToCart({name: 'Adidași Sport', price: 79});">Adaugă în coș</button>
   </div>
+
   <div class="product">
-    <img src="food.jpg" alt="Hrană porumbei">
-    <h3>Hrană porumbei</h3>
-    <p>20 lei</p>
-    <button onclick="addToCart('food')">Adaugă în coș</button>
+    <a href="food.html">
+      <img src="images/food.jpg" alt="Mâncare pentru porumbel" />
+      <h2>Mâncare Premium</h2>
+      <p class="price">35 RON</p>
+    </a>
+    <button onclick="addToCart({name: 'Mâncare Premium', price: 35});">Adaugă în coș</button>
   </div>
+
   <div class="product">
-    <img src="nest.jpg" alt="Cuib porumbel">
-    <h3>Cuib porumbel</h3>
-    <p>50 lei</p>
-    <button onclick="addToCart('nest')">Adaugă în coș</button>
+    <a href="nest.html">
+      <img src="images/nest.jpg" alt="Cuib pentru porumbel" />
+      <h2>Cuib de Lux</h2>
+      <p class="price">120 RON</p>
+    </a>
+    <button onclick="addToCart({name: 'Cuib de Lux', price: 120});">Adaugă în coș</button>
   </div>
+
 </div>
 
-<script>
-  function addToCart(id) {
-    const cart = JSON.parse(localStorage.getItem('cart')) || {};
-    cart[id] = (cart[id] || 0) + 1;
-    localStorage.setItem('cart', JSON.stringify(cart));
-    alert('Produs adăugat în coș!');
-  }
-</script>
+<!-- Iconița coș -->
+<a href="checkout.html" class="cart-icon" title="Vezi coșul">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M7 18c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm10 0c-1.104 0-2 .896-2 2s.896 2 2 2 2-.896 2-2-.896-2-2-2zm-12.416-2.215l1.791-7.083h12.29l-1.609 6.368a1 1 0 11-1.943-.49l1.021-4.04H8.96l-1.256 4.968a1 1 0 11-1.94-.23zm14.456-4.612a1 1 0 00-1.06-.756H6.37l-.41-1.621a1 1 0 00-.97-.728H2a1 1 0 100 2h1.888l1.727 6.82a1 1 0 101.934-.488l-.47-1.854h9.668a1 1 0 001-.754z"/>
+  </svg>
+</a>
 
 </body>
 </html>
