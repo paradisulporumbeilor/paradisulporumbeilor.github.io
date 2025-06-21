@@ -1,109 +1,97 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <title>Coșul Meu</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <style>
-    body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #f4f4f4;
-      padding: 20px;
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    .cart {
-      max-width: 800px;
-      margin: 0 auto;
-      background: white;
-      padding: 25px;
-      border-radius: 10px;
-      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-    }
-
-    .item {
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid #ccc;
-      padding: 15px 0;
-    }
-
-    .item img {
-      width: 100px;
-      height: 100px;
-      object-fit: contain;
-      margin-right: 20px;
-    }
-
-    .details {
-      flex-grow: 1;
-    }
-
-    .total {
-      text-align: right;
-      font-size: 1.2em;
-      font-weight: bold;
-      margin-top: 20px;
-    }
-
-    a {
-      display: block;
-      text-align: center;
-      margin-top: 20px;
-      text-decoration: none;
-      color: #3498db;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Checkout - Paradisul Porumbeilor</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+  }
+  h1 {
+    color: #333;
+  }
+  p {
+    font-size: 1.2em;
+  }
+  a {
+    color: #008CBA;
+    text-decoration: none;
+  }
+  a:hover {
+    text-decoration: underline;
+  }
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  li {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+  }
+  .total {
+    font-weight: bold;
+    font-size: 1.3em;
+    margin-top: 20px;
+  }
+  button {
+    margin-top: 20px;
+    background: #008CBA;
+    color: white;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+  }
+  button:hover {
+    background: #005f73;
+  }
+</style>
 </head>
 <body>
 
-<h1>Coșul tău</h1>
-<div class="cart" id="cart"></div>
-<a href="index.html">⟵ Înapoi la magazin</a>
+<h1>Checkout</h1>
+
+<div id="cart-items"></div>
+
+<button onclick="clearCart()">Golește coșul</button>
+
+<p><a href="index.html">Înapoi la magazin</a></p>
 
 <script>
-  const products = {
-    hat: { name: "Pălărie porumbel", price: 30, image: "hat.jpg" },
-    sneakers: { name: "Sneakers porumbel", price: 45, image: "sneakers.jpg" },
-    food: { name: "Hrană porumbei", price: 20, image: "food.jpg" },
-    nest: { name: "Cuib porumbel", price: 50, image: "nest.jpg" }
-  };
+  function displayCart() {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    let cartContainer = document.getElementById('cart-items');
 
-  const cart = JSON.parse(localStorage.getItem('cart')) || {};
-  const container = document.getElementById("cart");
-  let total = 0;
-
-  if (Object.keys(cart).length === 0) {
-    container.innerHTML = "<p>Coșul este gol.</p>";
-  } else {
-    for (let id in cart) {
-      const item = products[id];
-      const qty = cart[id];
-      const subtotal = item.price * qty;
-      total += subtotal;
-
-      const div = document.createElement("div");
-      div.className = "item";
-      div.innerHTML = `
-        <img src="${item.image}" alt="${item.name}">
-        <div class="details">
-          <h3>${item.name}</h3>
-          <p>Preț: ${item.price} lei</p>
-          <p>Cantitate: ${qty}</p>
-          <p>Total: ${subtotal} lei</p>
-        </div>
-      `;
-      container.appendChild(div);
+    if(cart.length === 0) {
+      cartContainer.innerHTML = '<p>Coșul tău este gol.</p>';
+      return;
     }
 
-    const totalDiv = document.createElement("div");
-    totalDiv.className = "total";
-    totalDiv.innerText = `Total de plată: ${total} lei`;
-    container.appendChild(totalDiv);
+    let html = '<ul>';
+    let total = 0;
+    cart.forEach(item => {
+      html += `<li>${item.name} - ${item.price} RON</li>`;
+      total += item.price;
+    });
+    html += '</ul>';
+    html += `<p class="total">Total: ${total} RON</p>`;
+
+    cartContainer.innerHTML = html;
   }
+
+  function clearCart() {
+    if(confirm('Ești sigur că vrei să golești coșul?')) {
+      localStorage.removeItem('cart');
+      displayCart();
+    }
+  }
+
+  window.onload = displayCart;
 </script>
 
 </body>
