@@ -3,36 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Checkout - Paradisul Porumbeilor</title>
+  <title>Paradisul Porumbeilor - Coș</title>
   <style>
     body { font-family: Arial, sans-serif; padding: 20px; }
     table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
     th, td { border: 1px solid #ccc; padding: 10px; text-align: left; }
-    th { background-color: #f4f4f4; }
-    button { padding: 5px 10px; cursor: pointer; }
-    #total { font-weight: bold; font-size: 1.2em; }
+    th { background-color: #f2f2f2; }
+    button { padding: 8px 15px; cursor: pointer; }
   </style>
 </head>
 <body>
 
-<h1>Coșul tău de cumpărături</h1>
+<h1>Coșul tău</h1>
 
 <table id="cart-table">
   <thead>
     <tr>
       <th>Produs</th>
-      <th>Preț unitar (RON)</th>
+      <th>Preț</th>
       <th>Cantitate</th>
-      <th>Subtotal (RON)</th>
-      <th>Acțiune</th>
+      <th>Total</th>
+      <th>Acțiuni</th>
     </tr>
   </thead>
-  <tbody>
-    <!-- Produsele din coș vor fi afișate aici -->
-  </tbody>
+  <tbody></tbody>
 </table>
 
-<div id="total">Total: 0 RON</div>
+<p id="empty-msg">Coșul este gol.</p>
 
 <button onclick="goBack()">Continuă cumpărăturile</button>
 
@@ -40,33 +37,45 @@
   function loadCart() {
     const cart = JSON.parse(localStorage.getItem('cart')) || [];
     const tbody = document.querySelector('#cart-table tbody');
+    const emptyMsg = document.getElementById('empty-msg');
     tbody.innerHTML = '';
 
-    let total = 0;
+    if (cart.length === 0) {
+      emptyMsg.style.display = 'block';
+      document.getElementById('cart-table').style.display = 'none';
+      return;
+    } else {
+      emptyMsg.style.display = 'none';
+      document.getElementById('cart-table').style.display = 'table';
+    }
 
-    cart.forEach((item, index) => {
-      const subtotal = item.price * item.qty;
-      total += subtotal;
+    let grandTotal = 0;
+    cart.forEach(item => {
+      const total = item.price * item.qty;
+      grandTotal += total;
 
-      const row = document.createElement('tr');
-
-      row.innerHTML = `
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
         <td>${item.name}</td>
-        <td>${item.price.toFixed(2)}</td>
+        <td>${item.price.toFixed(2)} RON</td>
         <td>${item.qty}</td>
-        <td>${subtotal.toFixed(2)}</td>
-        <td><button onclick="removeItem(${index})">Șterge</button></td>
+        <td>${total.toFixed(2)} RON</td>
+        <td><button onclick="removeItem(${item.id})">Șterge</button></td>
       `;
-
-      tbody.appendChild(row);
+      tbody.appendChild(tr);
     });
 
-    document.getElementById('total').textContent = `Total: ${total.toFixed(2)} RON`;
+    const trTotal = document.createElement('tr');
+    trTotal.innerHTML = `
+      <td colspan="3"><strong>Total general</strong></td>
+      <td colspan="2"><strong>${grandTotal.toFixed(2)} RON</strong></td>
+    `;
+    tbody.appendChild(trTotal);
   }
 
-  function removeItem(index) {
+  function removeItem(id) {
     let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    cart.splice(index, 1);
+    cart = cart.filter(item => item.id !== id);
     localStorage.setItem('cart', JSON.stringify(cart));
     loadCart();
   }
@@ -75,7 +84,6 @@
     window.location.href = 'index.html';
   }
 
-  // La încărcarea paginii
   window.onload = loadCart;
 </script>
 
