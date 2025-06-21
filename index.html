@@ -1,122 +1,140 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Coșul meu - Paradisul Porumbeilor</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f9f9f9;
-      margin: 0;
-      padding: 20px;
-    }
-    h1 {
-      text-align: center;
-      color: #2c3e50;
-    }
-    .cart-container {
-      max-width: 800px;
-      margin: 0 auto;
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .cart-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #eee;
-      padding-bottom: 10px;
-    }
-    .cart-item img {
-      width: 80px;
-      height: 80px;
-      object-fit: contain;
-      margin-right: 20px;
-      border-radius: 6px;
-    }
-    .cart-item-details {
-      flex: 1;
-    }
-    .cart-item-details h3 {
-      margin: 0 0 5px;
-    }
-    .cart-item-details p {
-      margin: 0;
-    }
-    .total {
-      text-align: right;
-      font-size: 1.2em;
-      font-weight: bold;
-      margin-top: 20px;
-    }
-    .back-btn {
-      display: block;
-      text-align: center;
-      margin-top: 30px;
-      text-decoration: none;
-      background-color: #3498db;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 5px;
-      font-weight: bold;
-    }
-    .back-btn:hover {
-      background-color: #2980b9;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paradisul Porumbeilor - Magazin</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background: #f0f4f8;
+  }
+  h1 {
+    color: #2c3e50;
+  }
+  .product {
+    background: white;
+    border-radius: 6px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin: 15px;
+    padding: 15px;
+    width: 220px;
+    display: inline-block;
+    vertical-align: top;
+    text-align: center;
+    transition: transform 0.2s;
+    cursor: pointer;
+  }
+  .product:hover {
+    transform: scale(1.05);
+  }
+  .product img {
+    max-width: 100%;
+    height: 140px;
+    object-fit: contain;
+    margin-bottom: 10px;
+  }
+  .product button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .product button:hover {
+    background-color: #2980b9;
+  }
+  #cartIcon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+  }
+  #cartIcon img {
+    width: 40px;
+  }
+  #cartCount {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: red;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+  }
+</style>
 </head>
 <body>
 
-<h1>Coșul tău de cumpărături</h1>
-<div class="cart-container" id="cart-container">
-  <!-- Produsele vor fi afișate aici din JavaScript -->
+<h1>Paradisul Porumbeilor - Magazin</h1>
+
+<div class="product" onclick="window.location.href='hat.html'">
+  <img src="hat.jpg" alt="Palarie porumbei" />
+  <h3>Palarie porumbei</h3>
+  <p>Preț: 30 lei</p>
+  <button onclick="event.stopPropagation(); addToCart('hat')">Adaugă în coș</button>
 </div>
 
-<a class="back-btn" href="index.html">Înapoi la magazin</a>
+<div class="product" onclick="window.location.href='sneakers.html'">
+  <img src="sneakers.jpg" alt="Sneakers pentru porumbei" />
+  <h3>Sneakers pentru porumbei</h3>
+  <p>Preț: 45 lei</p>
+  <button onclick="event.stopPropagation(); addToCart('sneakers')">Adaugă în coș</button>
+</div>
+
+<div class="product" onclick="window.location.href='food.html'">
+  <img src="food.jpg" alt="Hrană premium" />
+  <h3>Hrană premium</h3>
+  <p>Preț: 20 lei</p>
+  <button onclick="event.stopPropagation(); addToCart('food')">Adaugă în coș</button>
+</div>
+
+<div class="product" onclick="window.location.href='nest.html'">
+  <img src="nest.jpg" alt="Cuib confortabil" />
+  <h3>Cuib confortabil</h3>
+  <p>Preț: 50 lei</p>
+  <button onclick="event.stopPropagation(); addToCart('nest')">Adaugă în coș</button>
+</div>
+
+<div id="cartIcon" onclick="window.location.href='checkout.html'">
+  <img src="cart-icon.png" alt="Coș" />
+  <div id="cartCount">0</div>
+</div>
 
 <script>
   const products = {
     hat: { name: "Palarie porumbei", price: 30, image: "hat.jpg" },
-    sneakers: { name: "Sneakers porumbei", price: 45, image: "sneakers.jpg" },
-    food: { name: "Hrană specială", price: 20, image: "food.jpg" },
-    nest: { name: "Cuib porumbei", price: 50, image: "nest.jpg" }
+    sneakers: { name: "Sneakers pentru porumbei", price: 45, image: "sneakers.jpg" },
+    food: { name: "Hrană premium", price: 20, image: "food.jpg" },
+    nest: { name: "Cuib confortabil", price: 50, image: "nest.jpg" },
   };
 
-  const cart = JSON.parse(localStorage.getItem('cart')) || {};
-  const container = document.getElementById('cart-container');
-
-  if (Object.keys(cart).length === 0) {
-    container.innerHTML = "<p>Coșul tău este gol.</p>";
-  } else {
-    let total = 0;
-    for (const id in cart) {
-      const item = products[id];
-      const quantity = cart[id];
-      const subtotal = item.price * quantity;
-      total += subtotal;
-
-      const element = document.createElement('div');
-      element.className = 'cart-item';
-      element.innerHTML = `
-        <img src="${item.image}" alt="${item.name}" />
-        <div class="cart-item-details">
-          <h3>${item.name}</h3>
-          <p>Preț: ${item.price} lei</p>
-          <p>Cantitate: ${quantity}</p>
-          <p>Total: ${subtotal} lei</p>
-        </div>
-      `;
-      container.appendChild(element);
-    }
-
-    const totalEl = document.createElement('div');
-    totalEl.className = 'total';
-    totalEl.textContent = `Total de plată: ${total} lei`;
-    container.appendChild(totalEl);
+  function addToCart(id) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || {};
+    cart[id] = (cart[id] || 0) + 1;
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartCount();
+    alert(`${products[id].name} a fost adăugat în coș!`);
   }
+
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || {};
+    let count = 0;
+    for (let key in cart) {
+      count += cart[key];
+    }
+    document.getElementById('cartCount').textContent = count;
+  }
+
+  window.onload = updateCartCount;
 </script>
 
 </body>
