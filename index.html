@@ -1,169 +1,235 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Paradisul Porumbeilor - Magazin</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background-color: #f0f0f0;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-    }
-    .store {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      max-width: 1200px;
-      margin: 0 auto 40px auto;
-    }
-    .product {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .product img {
-      width: 100%;
-      max-height: 200px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-    .price {
-      color: green;
-      font-weight: bold;
-      font-size: 1.2em;
-      margin: 10px 0;
-    }
-    button {
-      background: #008CBA;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-    button:hover {
-      background: #005f73;
-    }
-    /* Coșul */
-    #cart {
-      max-width: 600px;
-      background: white;
-      margin: 0 auto 40px auto;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0,0,0,0.15);
-    }
-    #cart h2 {
-      margin-top: 0;
-    }
-    #cart ul {
-      list-style: none;
-      padding-left: 0;
-    }
-    #cart ul li {
-      padding: 5px 0;
-      border-bottom: 1px solid #ddd;
-    }
-    #cart .total {
-      font-weight: bold;
-      font-size: 1.2em;
-      margin-top: 15px;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Paradisul Porumbeilor - Magazin</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f0f0f0;
+  }
+  h1 {
+    text-align: center;
+    color: #333;
+  }
+  .store {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto 40px auto;
+  }
+  .product {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+  }
+  .product img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  .price {
+    color: green;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin: 10px 0;
+  }
+  button {
+    background: #008CBA;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  button:hover {
+    background: #005f73;
+  }
+  /* Descriere detaliată ascunsă */
+  .details {
+    text-align: left;
+    margin-top: 10px;
+    display: none;
+    font-size: 0.9em;
+    color: #444;
+  }
+  /* Coșul */
+  #cart {
+    max-width: 600px;
+    background: white;
+    margin: 20px auto 40px auto;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0,0,0,0.15);
+    display: none; /* Ascuns la început */
+  }
+  #cart h2 {
+    margin-top: 0;
+  }
+  #cart ul {
+    list-style: none;
+    padding-left: 0;
+  }
+  #cart ul li {
+    padding: 5px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  #cart .total {
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 15px;
+  }
+  /* Iconița coș */
+  #cart-icon {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #008CBA;
+    color: white;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    font-size: 24px;
+    z-index: 1000;
+    user-select: none;
+  }
+  #cart-icon:hover {
+    background: #005f73;
+  }
+</style>
 </head>
 <body>
 
-  <h1>Paradisul Porumbeilor - Magazin</h1>
+<h1>Paradisul Porumbeilor - Magazin</h1>
 
-  <div class="store">
-    <div class="product" data-name="Pălărie Elegantă" data-price="49">
-      <img src="images/hat.jpg" alt="Pălărie pentru porumbel" />
-      <h2>Pălărie Elegantă</h2>
-      <p>Transformă-ți porumbelul într-un adevărat domn cu această pălărie stilată.</p>
-      <p class="price">49 RON</p>
-      <button onclick="addToCart(this)">Adaugă în coș</button>
-    </div>
+<div class="store">
 
-    <div class="product" data-name="Adidași Sport" data-price="79">
-      <img src="images/sneakers.jpg" alt="Adidași pentru porumbel" />
-      <h2>Adidași Sport</h2>
-      <p>Confort maxim pentru porumbeii activi.</p>
-      <p class="price">79 RON</p>
-      <button onclick="addToCart(this)">Adaugă în coș</button>
-    </div>
-
-    <div class="product" data-name="Mâncare Premium" data-price="35">
-      <img src="images/food.jpg" alt="Mâncare premium pentru porumbel" />
-      <h2>Mâncare Premium</h2>
-      <p>Hrănește-ți prietenul cu cea mai bună hrană.</p>
-      <p class="price">35 RON</p>
-      <button onclick="addToCart(this)">Adaugă în coș</button>
-    </div>
-
-    <div class="product" data-name="Cuib de Lux" data-price="120">
-      <img src="images/nest.jpg" alt="Cuib de lux pentru porumbel" />
-      <h2>Cuib de Lux</h2>
-      <p>Confort absolut pentru cuibul porumbelului tău.</p>
-      <p class="price">120 RON</p>
-      <button onclick="addToCart(this)">Adaugă în coș</button>
+  <div class="product" data-name="Pălărie Elegantă" data-price="49">
+    <img src="images/hat.jpg" alt="Pălărie pentru porumbel" />
+    <h2>Pălărie Elegantă</h2>
+    <p class="price">49 RON</p>
+    <button onclick="addToCart(this); event.stopPropagation();">Adaugă în coș</button>
+    <div class="details">
+      O pălărie stilată pentru porumbeii care vor să iasă în evidență. Fabricată din materiale ușoare și confortabile.
     </div>
   </div>
 
-  <div id="cart">
-    <h2>Coșul tău</h2>
-    <ul id="cart-items">
-      <li>Coșul este gol.</li>
-    </ul>
-    <p class="total" id="cart-total">Total: 0 RON</p>
+  <div class="product" data-name="Adidași Sport" data-price="79">
+    <img src="images/sneakers.jpg" alt="Adidași pentru porumbel" />
+    <h2>Adidași Sport</h2>
+    <p class="price">79 RON</p>
+    <button onclick="addToCart(this); event.stopPropagation();">Adaugă în coș</button>
+    <div class="details">
+      Adidași confortabili pentru porumbeii activi. Asigură protecție și stil în orice zbor.
+    </div>
   </div>
 
-  <script>
-    const cartItems = [];
-    const cartItemsList = document.getElementById('cart-items');
-    const cartTotalElem = document.getElementById('cart-total');
+  <div class="product" data-name="Mâncare Premium" data-price="35">
+    <img src="images/food.jpg" alt="Mâncare premium pentru porumbel" />
+    <h2>Mâncare Premium</h2>
+    <p class="price">35 RON</p>
+    <button onclick="addToCart(this); event.stopPropagation();">Adaugă în coș</button>
+    <div class="details">
+      Amestec nutritiv de semințe și vitamine, ideal pentru sănătatea porumbeilor tăi.
+    </div>
+  </div>
 
-    function addToCart(button) {
-      const productDiv = button.parentElement;
-      const name = productDiv.getAttribute('data-name');
-      const price = Number(productDiv.getAttribute('data-price'));
+  <div class="product" data-name="Cuib de Lux" data-price="120">
+    <img src="images/nest.jpg" alt="Cuib de lux pentru porumbel" />
+    <h2>Cuib de Lux</h2>
+    <p class="price">120 RON</p>
+    <button onclick="addToCart(this); event.stopPropagation();">Adaugă în coș</button>
+    <div class="details">
+      Cuib confortabil și elegant, perfect pentru odihna porumbeilor tăi.
+    </div>
+  </div>
 
-      // Verifică dacă produsul există deja în coș
-      const existingItem = cartItems.find(item => item.name === name);
-      if (existingItem) {
-        existingItem.qty++;
+</div>
+
+<div id="cart">
+  <h2>Coșul tău</h2>
+  <ul id="cart-items">
+    <li>Coșul este gol.</li>
+  </ul>
+  <p class="total" id="cart-total">Total: 0 RON</p>
+</div>
+
+<!-- Iconița coș -->
+<div id="cart-icon" title="Vezi coșul">&#128722;</div>
+
+<script>
+  const cartItems = [];
+  const cartItemsList = document.getElementById('cart-items');
+  const cartTotalElem = document.getElementById('cart-total');
+  const cartDiv = document.getElementById('cart');
+  const cartIcon = document.getElementById('cart-icon');
+
+  // Funcție pentru adăugat în coș
+  function addToCart(button) {
+    const productDiv = button.parentElement;
+    const name = productDiv.getAttribute('data-name');
+    const price = Number(productDiv.getAttribute('data-price'));
+
+    const existingItem = cartItems.find(item => item.name === name);
+    if (existingItem) {
+      existingItem.qty++;
+    } else {
+      cartItems.push({ name, price, qty: 1 });
+    }
+
+    updateCartUI();
+  }
+
+  // Actualizează interfața coșului
+  function updateCartUI() {
+    cartItemsList.innerHTML = '';
+    if (cartItems.length === 0) {
+      cartItemsList.innerHTML = '<li>Coșul este gol.</li>';
+      cartTotalElem.textContent = 'Total: 0 RON';
+      return;
+    }
+
+    let total = 0;
+    cartItems.forEach(item => {
+      total += item.price * item.qty;
+      const li = document.createElement('li');
+      li.textContent = `${item.name} x${item.qty} — ${item.price * item.qty} RON`;
+      cartItemsList.appendChild(li);
+    });
+    cartTotalElem.textContent = `Total: ${total} RON`;
+  }
+
+  // Toggle descrierea detaliată la click pe produs
+  document.querySelectorAll('.product').forEach(prod => {
+    prod.addEventListener('click', () => {
+      const details = prod.querySelector('.details');
+      if (details.style.display === 'block') {
+        details.style.display = 'none';
       } else {
-        cartItems.push({ name, price, qty: 1 });
+        details.style.display = 'block';
       }
+    });
+  });
 
-      updateCartUI();
+  // Toggle vizibilitatea coșului la click pe iconiță
+  cartIcon.addEventListener('click', () => {
+    if (cartDiv.style.display === 'block') {
+      cartDiv.style.display = 'none';
+    } else {
+      cartDiv.style.display = 'block';
     }
-
-    function updateCartUI() {
-      cartItemsList.innerHTML = '';
-      if (cartItems.length === 0) {
-        cartItemsList.innerHTML = '<li>Coșul este gol.</li>';
-        cartTotalElem.textContent = 'Total: 0 RON';
-        return;
-      }
-
-      let total = 0;
-      cartItems.forEach(item => {
-        total += item.price * item.qty;
-        const li = document.createElement('li');
-        li.textContent = `${item.name} x${item.qty} — ${item.price * item.qty} RON`;
-        cartItemsList.appendChild(li);
-      });
-      cartTotalElem.textContent = `Total: ${total} RON`;
-    }
-  </script>
+  });
+</script>
 
 </body>
 </html>
