@@ -3,126 +3,157 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Paradisul Porumbeilor - Magazin Accesorii</title>
+  <title>Paradisul Porumbeilor - Magazin</title>
   <style>
     body {
       font-family: Arial, sans-serif;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-      background-color: #f0f4f8;
-      color: #333;
-      position: relative;
+      margin: 40px;
+      background: #f0f4f8;
     }
-    h1 {
-      color: #0a9396;
-      text-align: center;
-      margin-bottom: 40px;
+    .product {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
     }
-    .cart-icon {
+    .product img {
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 20px;
+    }
+    .product-details {
+      flex-grow: 1;
+    }
+    .product-details h2 {
+      margin: 0 0 10px;
+      font-size: 1.3rem;
+    }
+    .product-details p {
+      margin: 0 0 10px;
+      color: #555;
+    }
+    button {
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 16px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #0056b3;
+    }
+    /* Cart icon */
+    #cart-icon {
       position: fixed;
       top: 20px;
       right: 20px;
+      cursor: pointer;
+    }
+    #cart-icon img {
       width: 40px;
       height: 40px;
-      cursor: pointer;
-      z-index: 1000;
     }
-    .cart-icon img {
-      width: 100%;
-      height: 100%;
-    }
-    .products {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 25px;
-      justify-content: center;
-    }
-    .product {
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      width: 200px;
-      text-align: center;
-      padding: 15px;
-      transition: transform 0.2s ease;
-    }
-    .product:hover {
-      transform: scale(1.05);
-    }
-    .product img {
-      width: 100%;
-      border-radius: 6px;
-      margin-bottom: 15px;
-    }
-    .product button {
-      background-color: #0a9396;
+    #cart-count {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: red;
       color: white;
-      border: none;
-      padding: 10px 15px;
-      border-radius: 5px;
-      cursor: pointer;
+      border-radius: 50%;
+      padding: 3px 7px;
+      font-size: 14px;
       font-weight: bold;
-    }
-    .product button:hover {
-      background-color: #005f73;
+      pointer-events: none;
+      user-select: none;
     }
   </style>
 </head>
 <body>
 
-  <h1>Paradisul Porumbeilor - Magazin Accesorii</h1>
-
-  <!-- Iconita cos -->
-  <a href="checkout.html" class="cart-icon" title="Vezi coșul">
-    <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Coș de cumpărături" />
+  <a id="cart-icon" href="checkout.html" aria-label="Vezi coșul">
+    <img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png" alt="Coș cumpărături" />
+    <span id="cart-count"></span>
   </a>
 
-  <div class="products">
-    <div class="product">
-      <a href="hat.html">
-        <img src="images/hat.jpg" alt="Pălărie porumbel" />
-        <h3>Pălărie porumbel</h3>
-      </a>
+  <h1>Paradisul Porumbeilor - Magazin</h1>
+
+  <div class="product">
+    <img src="images/hat.jpg" alt="Pălărie porumbel" />
+    <div class="product-details">
+      <h2>Pălărie porumbel</h2>
+      <p>O pălărie elegantă pentru porumbeii tăi.</p>
+      <p><strong>Preț: 50 RON</strong></p>
       <button onclick="addToCart('hat')">Adaugă în coș</button>
     </div>
+  </div>
 
-    <div class="product">
-      <a href="sneakers.html">
-        <img src="images/sneakers.jpg" alt="Adidași porumbel" />
-        <h3>Adidași porumbel</h3>
-      </a>
+  <div class="product">
+    <img src="images/sneakers.jpg" alt="Adidași porumbel" />
+    <div class="product-details">
+      <h2>Adidași porumbel</h2>
+      <p>Adidași comozi și rezistenți pentru porumbeii tăi.</p>
+      <p><strong>Preț: 80 RON</strong></p>
       <button onclick="addToCart('sneakers')">Adaugă în coș</button>
     </div>
+  </div>
 
-    <div class="product">
-      <a href="food.html">
-        <img src="images/food.jpg" alt="Mâncare porumbel" />
-        <h3>Mâncare porumbel</h3>
-      </a>
+  <div class="product">
+    <img src="images/food.jpg" alt="Mâncare porumbel" />
+    <div class="product-details">
+      <h2>Mâncare porumbel</h2>
+      <p>Mix special nutritiv pentru porumbeii tăi.</p>
+      <p><strong>Preț: 30 RON</strong></p>
       <button onclick="addToCart('food')">Adaugă în coș</button>
     </div>
+  </div>
 
-    <div class="product">
-      <a href="nest.html">
-        <img src="images/nest.jpg" alt="Cuib porumbel" />
-        <h3>Cuib porumbel</h3>
-      </a>
+  <div class="product">
+    <img src="images/nest.jpg" alt="Cuib porumbel" />
+    <div class="product-details">
+      <h2>Cuib porumbel</h2>
+      <p>Cuib confortabil și sigur pentru porumbeii tăi.</p>
+      <p><strong>Preț: 120 RON</strong></p>
       <button onclick="addToCart('nest')">Adaugă în coș</button>
     </div>
   </div>
 
 <script>
-  function addToCart(productId) {
+  const products = {
+    hat: { name: "Pălărie porumbel", price: 50, img: "images/hat.jpg" },
+    sneakers: { name: "Adidași porumbel", price: 80, img: "images/sneakers.jpg" },
+    food: { name: "Mâncare porumbel", price: 30, img: "images/food.jpg" },
+    nest: { name: "Cuib porumbel", price: 120, img: "images/nest.jpg" }
+  };
+
+  function addToCart(id) {
     let cart = JSON.parse(localStorage.getItem('cart')) || {};
-    if(cart[productId]) {
-      cart[productId]++;
+    if (cart[id]) {
+      cart[id]++;
     } else {
-      cart[productId] = 1;
+      cart[id] = 1;
     }
     localStorage.setItem('cart', JSON.stringify(cart));
-    alert('Produs adăugat în coș!');
+    updateCartCount();
+    alert(products[id].name + " a fost adăugat în coș!");
   }
+
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || {};
+    let total = 0;
+    for (const key in cart) total += cart[key];
+    const badge = document.getElementById('cart-count');
+    if (badge) badge.textContent = total > 0 ? total : '';
+  }
+
+  window.onload = updateCartCount;
 </script>
 
 </body>
